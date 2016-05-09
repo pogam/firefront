@@ -1,5 +1,6 @@
 
 import os
+import sysconfig
 
 #example
 #export  NETCDF_HOME=$HOME/soft/ ; export  NUMPY_HOME=$HOME/soft/lib/python/numpy/core/;export FOREFIRE_HOME=$HOME/workspace/LibForeFire/ ; export  PYTHON_HOME=/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7  
@@ -33,7 +34,9 @@ except KeyError:
 env = Environment(CPPPATH=[netcdfHome+'/include/',numpyIncludes+'/include/',pythonIncludes,ffPath],CCFLAGS=['-fmessage-length=0','-g2'], LIBPATH=[netcdfHome+'/lib/',ffPath ])
 
 env.Append( SWIGFLAGS = '-c++ -python' )
-env.Append( LIBS = ['netcdf_c++', 'netcdf','ForeFire', 'python'] )
+env.Append( LIBS = ['netcdf_c++', 'netcdf','ForeFire', 'python2.7'] )
 
 env.SharedLibrary( target = 'forefire.so', 
                    source = ['PLibForeFire.cpp', 'PLibForeFire.i' ], SHLIBPREFIX='_'  )
+
+
