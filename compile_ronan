@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+export NETCDF_HOME=/opt/netcdf-4.3.0/gnu/
+scons
