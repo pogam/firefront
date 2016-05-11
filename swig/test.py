@@ -90,6 +90,7 @@ def printToPathe(linePrinted):
 
 ###################################################
 ###################################################
+<<<<<<< HEAD
 
 
 # dimension
@@ -257,14 +258,33 @@ for key in nc_variable:
     
     else:
         nco.variables[key][:] = np.zeros(dimensions_value)
+=======
+>>>>>>> dd6dd14eb75f7552e223bf7fce136ce3b92aa692
 
     if nc_attribute[key] is not None:
         for attvar in nc_attribute[key]: 
             nco.variables[key]._attributes[attvar] =  nc_attribute[key][attvar]
          
 
+<<<<<<< HEAD
 #close nc file
 nco.close()
+=======
+ff = forefire.PLibForeFire()
+
+sizeX = 300
+sizeY = 200
+
+
+ff.setString("fuelsTableFile","fuels.ff")
+ff.setString("ForeFireDataDirectory","test")
+
+ff.setDouble("spatialIncrement",.3)
+ff.setDouble("minimalPropagativeFrontDepth",0.1)
+ff.setDouble("perimeterResolution",1)
+ff.setInt("atmoNX",sizeX)
+ff.setInt("atmoNY",sizeY)
+>>>>>>> dd6dd14eb75f7552e223bf7fce136ce3b92aa692
 
 
 #---------------------------------------------
@@ -272,6 +292,7 @@ nco.close()
 #---------------------------------------------
 ff = forefire.PLibForeFire()
 
+<<<<<<< HEAD
 #set param
 ff.setString('ForeFireDataDirectory','test')
 ff.setString('fireOutputDirectory','Output')
@@ -283,38 +304,83 @@ ff.setString('BMapFiles', mybmapnc.split('/')[-1])
 ff.setDouble("spatialIncrement",spatialIncrement)
 ff.setDouble("perimeterResolution",1)
 ff.setDouble("minimalPropagativeFrontDepth",minimalPropagativeFrontDepth)
+=======
+ff.setDouble("initialFrontDepth",100)
+ff.setDouble("relax",.5)
+ff.setDouble("smoothing",4)
+ff.setDouble("z0",0.)
+ff.setDouble("windU",0.)
+ff.setDouble("windV",10.)
+ff.setInt("defaultFuelType",1)
+ff.setInt("bmapLayer",1)
+
+ff.setInt("defaultHeatType",0)
+>>>>>>> dd6dd14eb75f7552e223bf7fce136ce3b92aa692
 ff.setDouble("nominalHeatFlux",100000)
 ff.setDouble("nominalVaporFlux",0.2)
 ff.setDouble("burningDuration",burningDuration)
 
+<<<<<<< HEAD
 ff.setDouble("bmapOutputUpdate",1)
+=======
+
+ff.execute("FireDomain[sw=(0.,0.,0.);ne=(%f,%f,0.);t=0.]"%(sizeX,sizeY))
+>>>>>>> dd6dd14eb75f7552e223bf7fce136ce3b92aa692
 
 
+<<<<<<< HEAD
 #set domain
 ff.setInt("atmoNX",nx)
 ff.setInt("atmoNY",ny)
 ff.execute("FireDomain[sw=(%f,%f,0.);ne=(%f,%f,0.);t=0.]"%(attribute.domain['SWx'],attribute.domain['SWy'],attribute.domain['NEx'],attribute.domain['NEy']))
+=======
+ff.addLayer("data","altitude","z0")
+ff.addLayer("data","windU","windU")
+ff.addLayer("data","windV","windV")
+ff.addLayer("BRatio","BRatio","BRatio")
+ff.addLayer("flux","heatFluxBasic","defaultHeatType")
+#ff.addLayer("propagation","BalbiUnsteady","propagationModel")
+ff.addLayer("propagation","Ronan","propagationModel")
+>>>>>>> dd6dd14eb75f7552e223bf7fce136ce3b92aa692
 
 
+<<<<<<< HEAD
 #set propagation model
 ff.addLayer("propagation","TroisPourcent","propagationModel")
+=======
+fuelmap[:,:,:] = 1
+#fuelmap[:,90:110,:] = 1
+#fuelmap[150:,90:110,:] = 3
+ff.addIndexLayer("table","fuel",0 , 0, 0, sizeX, sizeY, 0, fuelmap)
+>>>>>>> dd6dd14eb75f7552e223bf7fce136ce3b92aa692
 
 print "resolution of bmap is ", ff.getString("bmapResolution")
 
 #set fire line
 ff.execute("\tFireFront[t=0.]")
+<<<<<<< HEAD
 ff.execute("\t\tFireNode[loc=(500,600,0.);vel=(0.,0.,0.);t=0.]")
 ff.execute("\t\tFireNode[loc=(500,400,0.);vel=(0.,0.,0.);t=0.]")
 ff.execute("\t\tFireNode[loc=(490,400,0.);vel=(0.,0.,0.);t=0.]")
 ff.execute("\t\tFireNode[loc=(490,600,0.);vel=(0.,0.,0.);t=0.]")
 
+=======
+ff.execute("\t\tFireNode[loc=(40,65,0.);vel=(0.,0.,0.);t=0.]")
+ff.execute("\t\tFireNode[loc=(40,65,0.);vel=(0.,0.,0.);t=0.]")
+ff.execute("\t\tFireNode[loc=(50,65,0.);vel=(0.,0.,0.);t=0.]")
+ff.execute("\t\tFireNode[loc=(50,65,0.);vel=(0.,0.,0.);t=0.]")
+>>>>>>> dd6dd14eb75f7552e223bf7fce136ce3b92aa692
 
 #---------------------------------------------
 # run ForeFire simulation
 #---------------------------------------------
 pathes = []
 step = 1
+<<<<<<< HEAD
 N_step = 10
+=======
+N_step = 20
+>>>>>>> dd6dd14eb75f7552e223bf7fce136ce3b92aa692
 for i in np.arange(1,N_step):
     print "goTo[t=%f]"%(i*step)
     ff.execute("goTo[t=%f]"%(i*step))
