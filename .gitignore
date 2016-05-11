@@ -1,5 +1,6 @@
 #dir
 swig/Output/
+swig/test/*.nc
 
 #gvim 
 *.swp
