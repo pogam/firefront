@@ -1,0 +1,5 @@
+set -x
+rm -f PRESSURE file_for_xtransfer
+rm -f *.{lfi,des,nc4}  
+rm -f OUT* pipe_name
+

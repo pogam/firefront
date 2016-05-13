@@ -1,0 +1,4 @@
+set -x
+rm -f CANYON10m.* OUTPUT_LISTING* pipe* *.tex
+rm -f *~
+time mpirun -np 1 PREP_IDEAL_CASE${XYZ}          

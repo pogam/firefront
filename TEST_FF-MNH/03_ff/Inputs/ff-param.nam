@@ -1,0 +1,20 @@
+&FF_PARAM  
+    fuelsTableFile=fuels.ff
+
+    propagationModel    = TroisPourcent
+    spatialIncrement    = 0.3
+    perimeterResolution = 1.
+
+    minimalPropagativeFrontDepth = 10
+    burningDuration              = 10000000
+    nominalHeatFlux              = 1000000.
+    nominalVaporFlux             = 0.2
+
+    watchedProc      = -2
+    outputsUpdate    = 5
+    bmapOutputUpdate = 2
+    
+    fireOutputDirectory   = 'ForeFire/Outputs/'
+    atmoOutputDirectories = 'MODEL1'
+    outputDirectories     = 'MODEL1/'  
+    /

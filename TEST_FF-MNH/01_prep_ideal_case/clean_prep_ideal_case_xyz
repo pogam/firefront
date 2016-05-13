@@ -1,0 +1,4 @@
+set -x
+rm -f *.{lfi,des,nc4} 
+rm -f OUTPUT_LISTING* pipe* *.tex
+rm -f file_for_xtransfer

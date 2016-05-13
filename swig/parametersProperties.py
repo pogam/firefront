@@ -11,8 +11,8 @@ windU    = {'type' : "data"}
 windV    = {'type' : "data"} 
 altitude = {'type' : "data"} 
 domain   = {'type': 'domain',
-            'NEx'  : 1020.0,
-            'NEy'  : 1020.0, 
+            'NEx'  : 420.0,
+            'NEy'  : 420.0, 
             'NEz'  :    0.0, 
             'SWx' :  -20.0,
             'SWy' :  -20.0, 
@@ -24,9 +24,9 @@ domain   = {'type': 'domain',
             'Lt'  : 1000.0, 
             }
 parameters= {'type' : "parameters" ,
-            'date' : "2009-07-23_12:00:00",
-            'refYear' : 2013 ,
-            'refDay' : 30,
+            'date' : "2000-01-01_00:00:00",
+            'refYear' : 2000 ,
+            'refDay' : 0,
             'duration' : 360000 ,
 	    'projection' : "OPENMAP" ,
             'projectionproperties' : "41.551998,8.828396,41.551998,8.828396" ,

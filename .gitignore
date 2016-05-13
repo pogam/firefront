@@ -1,6 +1,11 @@
 #dir
 swig/Output/
 swig/test/*.nc
+swig/*.so
+swig/*.os
+swig/*.o
+swig/*.wrap.cc
+
 
 #gvim 
 *.swp

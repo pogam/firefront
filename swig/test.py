@@ -93,8 +93,8 @@ def printToPathe(linePrinted):
 
 
 # dimension
-nx = 52
-ny = 52
+nx = 22
+ny = 22
 #load attribute
 attribute = imp.load_source('na','./parametersProperties.py')
 
@@ -112,12 +112,12 @@ windU_in = 10 # cte wind speed
 windV_in = 0
 mydatanc = './test/mydata.nc'
 mybmapnc = './test/mybmap.nc'
-x_location_fireLine = 100.   # location of a fix fire line defined in the bmap file (m)
-width_fireLine      = 200.
+x_location_fireLine = 200.   # location of a fix fire line defined in the bmap file (m)
+width_fireLine      = 100.
 burningDuration     = 100.   # (s)
 
 #this need to be defined here for bmap matrix
-minimalPropagativeFrontDepth = 0.1
+minimalPropagativeFrontDepth = 10
 spatialIncrement             = .3
 BMapsResolution = max(spatialIncrement/np.sqrt(2), minimalPropagativeFrontDepth)
 
