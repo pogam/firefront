@@ -1,3 +1,4 @@
-set -x
-ln -fs ../01_prep_ideal_case/*.{des,lfi,nc4} .
+ln -fs ../01_prep_ideal_case/*.des .
+ln -fs ../01_prep_ideal_case/*.lfi .
+ln -fs ../01_prep_ideal_case/*.nc4 .
 time UNLIMITED  MESONH${XYZ}

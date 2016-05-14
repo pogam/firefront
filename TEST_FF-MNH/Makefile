@@ -1,7 +1,12 @@
-all:
+all: prep mnh ff ff-mnh
+
+prep: 
 	cd 01_prep_ideal_case && run_prep_ideal_case_xyz
+mnh:
 	cd 02_mnh             && run_mesonh_xyz
+ff:
 	cd 03_ff              && run_ff.sh
+ff-mnh:
 	cd 04_ff-mnh          && run_ff-mnh.sh
 
 clean:

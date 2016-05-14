@@ -10,7 +10,7 @@
                         CSUBG_AUCV='NONE', LSUBG_COND=F, LSIGMAS=T, LSIG_CONV = .F., LTURB_FLX=T /
 &NAM_CONF       CCONF = "START", NVERB = 5, CSPLIT="BSPLITTING",
                         CEXP = "FI20m", CSEG = "SEG01" /
-&NAM_DYN        XSEGLEN = 100, LCORIO = F, LNUMDIFU = T,
+&NAM_DYN        XSEGLEN = 10, LCORIO = F, LNUMDIFU = T,
                         XALKTOP = 0.005, XALZBOT = 350 /
 
 &NAM_PGD_SCHEMES CNATURE='ISBA' /
