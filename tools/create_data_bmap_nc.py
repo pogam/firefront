@@ -13,8 +13,15 @@ import netCDF4
 import parametersProperties as attribute
 import f90nml
 import datetime
+import socket 
 
-path_ForeFire =  '/home/paugam/Src/ForeFire/'
+if socket.gethostname() == 'pyro':
+    path_ForeFire =  '/home/ronan/Src/ForeFire/'
+elif socket.gethostname() == 'ubu':
+    path_ForeFire =  '/home/paugam/Src/ForeFire/'
+else:
+    print socket.gethostname() + ' is not defined. stop here'
+    sys.exit()
 
 sys.path.append(path_ForeFire)
 sys.path.append(path_ForeFire+'/swig/')
@@ -154,14 +161,6 @@ if __name__ == '__main__':
 ###################################################
 
     ################### ... start input param
-    
-    #fix FireLine
-    x_location_fireLine = 200.   # location of a fix fire line defined in the bmap file (m)
-    width_fireLine      = 100.
-    
-    #extra perimeter
-    flag_run_ff        = True
-    flag_extra_contour = False
 
     #ff param
     input_ff_param_file = './Inputs/ff-param.nam'
@@ -176,9 +175,20 @@ if __name__ == '__main__':
     MNH_namelist = f90nml.read('../02_mnh/EXSEG1.nam')
     expr_name = MNH_namelist['NAM_CONF']['CEXP']
     MNH_domain   = read_MNH_domain(expr_name)
-    
+
     #read FF info
     nmls = f90nml.read('./Inputs/ff-param.nam')
+    
+    #ronan ff info
+    ronan_param = nmls['FF_RONAN']
+    #fix FireLine
+    x_location_fireLine = ronan_param['x_location_fireLine']  
+    width_fireLine      = ronan_param['width_fireLine'] 
+    #extra perimeter
+    flag_run_ff        = ronan_param['flag_run_ff'] 
+    flag_extra_contour = ronan_param['flag_extra_contour'] 
+
+    #general ff info
     ff_param = nmls['FF_PARAM']
     burningDuration              = ff_param['burningDuration']
     minimalPropagativeFrontDepth = ff_param['minimalPropagativeFrontDepth']
@@ -211,7 +221,7 @@ if __name__ == '__main__':
     attribute.domain['Lx'] = Lx
     attribute.domain['Ly'] = Ly
     atmo_dx = Lx/nx
-    atmo_dy = Ly/nx
+    atmo_dy = Ly/ny
     y_center = .5 * (Ly - 2 * atmo_dy) #of the domain without the grid pt on the side
 
     #init param
@@ -353,7 +363,10 @@ if __name__ == '__main__':
                 j_y_line = np.where( (grid_y>=(y_center-.5*y_line)) & (grid_y<=(y_center+.5*y_line)) )
                 idx_line_start = (np.zeros_like(j_y_line[0])+i_x_line, j_y_line[0] )
                 values = np.zeros(dimensions_value[::-1]) -9999
-                values[idx_line_start] = 0
+                try:
+                    values[idx_line_start] = 0
+                except IndexError:
+                    pdb.set_trace()
                 destAT[:] = values.T
 
         elif key == 'cell_active': 

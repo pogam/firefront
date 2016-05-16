@@ -1,3 +1,9 @@
+&FF_RONAN
+    x_location_fireLine = 200.   
+    width_fireLine      = 100.
+    flag_run_ff        = .True.
+    flag_extra_contour = .False./
+    
 &FF_PARAM  
     fuelsTableFile=fuels.ff
 

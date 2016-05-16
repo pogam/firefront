@@ -1,6 +1,5 @@
 
 import os
-import sysconfig
 
 #example
 #export  NETCDF_HOME=$HOME/soft/ ; export  NUMPY_HOME=$HOME/soft/lib/python/numpy/core/;export FOREFIRE_HOME=$HOME/workspace/LibForeFire/ ; export  PYTHON_HOME=/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7  
