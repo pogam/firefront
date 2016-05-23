@@ -22,21 +22,20 @@ if __name__ == '__main__':
     MNH_namelist = f90nml.read('../02_mnh/EXSEG1.nam')
     expr_name = MNH_namelist['NAM_CONF']['CEXP']
 
+    #read extra namelist for ff coupling
+    #-------------
+    MNH_Fire_namelist_extra = f90nml.read('./ff-mnh.nam')
 
+    #update and add keys
+    #-------------
+    keys = list(set(MNH_namelist.keys()+MNH_Fire_namelist_extra.keys()))
+    for key in keys:
+        if key in MNH_Fire_namelist_extra.keys() :
+            MNH_namelist[key] = MNH_Fire_namelist_extra[key]
+    
     #create exseg file for mnh with ff
     #-------------
-    f = open('../02_mnh/EXSEG1.nam')
-    mesonh_namelist = f.readlines()
-    f.close()
-    
-    f = open('../04_ff-mnh/ff-mnh.nam')
-    forefire_namelist = f.readlines()
-    f.close()
-
-    f = open('./EXSEG1.nam','w')
-    f.writelines(mesonh_namelist+['\n']+forefire_namelist)
-    f.close()
-
+    MNH_namelist.write('./EXSEG1.nam',force=True)
 
     #read FF info
     #-------------

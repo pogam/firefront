@@ -13,7 +13,7 @@
 
     minimalPropagativeFrontDepth = 10
     burningDuration              = 10000000
-    nominalHeatFlux              = 1000000.
+    nominalHeatFlux              = 1.e6
     nominalVaporFlux             = 0.2
 
     watchedProc      = -2
