@@ -11,9 +11,9 @@
     spatialIncrement    = 0.3
     perimeterResolution = 1.
 
-    minimalPropagativeFrontDepth = 10
+    minimalPropagativeFrontDepth = 20
     burningDuration              = 10000000
-    nominalHeatFlux              = 1.e6
+    nominalHeatFlux              = 1.8e6
     nominalVaporFlux             = 0.2
 
     watchedProc      = -2

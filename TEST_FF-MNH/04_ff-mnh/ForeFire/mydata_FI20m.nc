@@ -1,0 +1,1 @@
+../../03_ff/Inputs/mydata_FI20m.nc
