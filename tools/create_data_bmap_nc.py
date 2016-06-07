@@ -157,6 +157,14 @@ def printToPathe(linePrinted):
 
 
 ###################################################
+def getDomainExtent(line):
+    print line
+    llv = line.split("sw=(")
+    llr = llv[1].split("ne=(");
+    return( float( llr[0].split(",")[0]), float(llr[1].split(",")[0]), float(llr[0].split(",")[1]), float(llr[1].split(",")[1]) )
+
+
+###################################################
 if __name__ == '__main__':
 ###################################################
 
@@ -169,7 +177,10 @@ if __name__ == '__main__':
 
     #create dir
     ensure_dir('./Inputs/')
-    ensure_dir('./Outputs/')
+    ensure_dir('./ForeFire/')
+    ensure_dir('./ForeFire/Outputs/')
+    ensure_dir('./MODEL1/')
+
 
     #read MNH info
     MNH_namelist = f90nml.read('../02_mnh/EXSEG1.nam')
@@ -183,7 +194,9 @@ if __name__ == '__main__':
     ronan_param = nmls['FF_RONAN']
     #fix FireLine
     x_location_fireLine = ronan_param['x_location_fireLine']  
-    width_fireLine      = ronan_param['width_fireLine'] 
+    length_fireLine     = ronan_param['length_fireLine'] 
+    depth_fireLine      = ronan_param['depth_fireLine'] 
+    
     #extra perimeter
     flag_run_ff        = ronan_param['flag_run_ff'] 
     flag_extra_contour = ronan_param['flag_extra_contour'] 
@@ -232,7 +245,7 @@ if __name__ == '__main__':
 
     #this need to be defined here for bmap matrix
     BMapsResolution = max(spatialIncrement/np.sqrt(2), minimalPropagativeFrontDepth)
-
+    print BMapsResolution
 
     #---------------------------------------------
     #create data nc file for ForeFire Layer Models
@@ -358,13 +371,17 @@ if __name__ == '__main__':
         if   key == 'arrival_time_of_front': 
                 destAT = nco.variables['arrival_time_of_front']
                 x_line =  x_location_fireLine
-                y_line =  width_fireLine
-                i_x_line = (np.abs(grid_x-x_line)).argmin()
-                j_y_line = np.where( (grid_y>=(y_center-.5*y_line)) & (grid_y<=(y_center+.5*y_line)) )
-                idx_line_start = (np.zeros_like(j_y_line[0])+i_x_line, j_y_line[0] )
+                y_line =  length_fireLine
+                grid_y2d, grid_x2d = np.meshgrid(grid_y, grid_x)
+                idx_line_start = np.where( (grid_x2d>=(x_line  - depth_fireLine)) & (grid_x2d<= x_line             ) &\
+                                           (grid_y2d>=(y_center-.5*y_line)      ) & (grid_y2d<=(y_center+.5*y_line))  )
                 values = np.zeros(dimensions_value[::-1]) -9999
                 try:
                     values[idx_line_start] = 0
+                    #plt.imshow(values.T,origin='lower',interpolation='nearest',\
+                    #       extent=(grid_x.min(),grid_x.max()+BMapsResolution,grid_y.min(),grid_y.max()+BMapsResolution))
+                    #plt.show()
+                    #pdb.set_trace()
                 except IndexError:
                     pdb.set_trace()
                 destAT[:] = values.T
@@ -390,23 +407,27 @@ if __name__ == '__main__':
     if flag_run_ff:
         ff = forefire.PLibForeFire()
 
+        
         #set param
         ff.setString('ForeFireDataDirectory','Inputs')
         ff.setString('fireOutputDirectory','Outputs')
         ff.setInt('outputsUpdate',outputsUpdate)
+        
         ff.setString('NetCDFfile',    mydatanc.split('/')[-1])
         ff.setString('fluxNetCDFfile',mydatanc.split('/')[-1])
         ff.setString('fuelsTableFile','fuels.ff')
         ff.setString('BMapFiles', mybmapnc.split('/')[-1])
+        
         ff.setDouble("spatialIncrement",spatialIncrement)
         ff.setDouble("perimeterResolution",perimeterResolution)
         ff.setDouble("minimalPropagativeFrontDepth",minimalPropagativeFrontDepth)
+        
         ff.setDouble("nominalHeatFlux",nominalHeatFlux)
         ff.setDouble("nominalVaporFlux",nominalVaporFlux)
         ff.setDouble("burningDuration",burningDuration)
 
         ff.setDouble("bmapOutputUpdate",bmapOutputUpdate)
-
+        ff.setInt("defaultHeatType",0)
 
         #set domain
         ff.setInt("atmoNX",nx)
@@ -415,8 +436,15 @@ if __name__ == '__main__':
                                                                     attribute.domain['NEx'],attribute.domain['NEy'],  \
                                                                     attribute.domain['t0']))
 
+        extentLocal= getDomainExtent(ff.execute("print[]").split("\n")[0]);
+
+
         #set propagation model
         ff.addLayer("propagation","TroisPourcent","propagationModel")
+        ff.addLayer("flux","heatFluxBasic","defaultHeatType")
+        
+        fuelmap = ff.getDoubleArray("fuel").astype("int32")
+        ff.addIndexLayer("table","fuel", extentLocal[0], extentLocal[2],0,  extentLocal[1]-extentLocal[0], extentLocal[3]-extentLocal[2], 0, fuelmap)
 
         print "resolution of bmap is ", ff.getString("bmapResolution")
 
@@ -433,14 +461,22 @@ if __name__ == '__main__':
         # run ForeFire simulation
         #---------------------------------------------
         pathes = []
-        step = 1
-        N_step = 10
+        step = 10
+        N_step = 20
         for i in np.arange(1,N_step):
-            print "goTo[t=%f]"%(i*step)
+            print "goTo[t=%f]"%(i*step),
             ff.execute("goTo[t=%f]"%(i*step))
+            
+            flux2d = ff.getDoubleArray("heatFluxBasic")[:,:,0]
+            #plt.imshow(flux2d.T,origin='lower',interpolation='nearest'); plt.show()
+            flux_out_ff =  (flux2d * atmo_dx * atmo_dy).sum() * 1.e-6
+            flux_expected = depth_fireLine*length_fireLine*nominalHeatFlux * 1.e-6 
+            print  '| flux out of ff = ', flux_out_ff, '| expected = ', flux_expected, '| ratio = ', flux_out_ff/flux_expected
+            
             pathes += printToPathe( ff.execute("print[]"))
 
 
+        sys.exit()
         #---------------------------------------------
         # plot ForeFire perimeter
         #---------------------------------------------
