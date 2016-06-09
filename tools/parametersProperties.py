@@ -6,6 +6,11 @@ vaporFlux= {'type':'flux',                   \
             'indices': [3],              \
             'model3name': 'vaporFluxBasic',\
             }
+FRP = {'type':'flux',                   \
+            'indices': [2],              \
+            'model2name': 'FRP',   \
+            }
+
 fuel     = {'type' : "fuel"} 
 windU    = {'type' : "data"} 
 windV    = {'type' : "data"} 

@@ -84,8 +84,8 @@
 &nam_forefire
     lforefire = .true.
     couplingres = 100
-    nffscalars = 1
-    ffsvnames = 'BRatio'
+    nffscalars = 2
+    ffsvnames = 'BRatio', 'FRP'
     ffoutups = 5
     physout = 5
     flowout = 5

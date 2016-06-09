@@ -13,7 +13,7 @@
     perimeterResolution = 1.
 
     minimalPropagativeFrontDepth = 1.
-    burningDuration              = 1.e10
+    burningDuration              = 100.
     nominalHeatFlux              = 1.8e6
     nominalVaporFlux             = 0.2
 

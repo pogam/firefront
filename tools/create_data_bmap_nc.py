@@ -245,7 +245,7 @@ if __name__ == '__main__':
 
     #this need to be defined here for bmap matrix
     BMapsResolution = max(spatialIncrement/np.sqrt(2), minimalPropagativeFrontDepth)
-    print BMapsResolution
+    print 'BMapsResolution = ', BMapsResolution
 
     #---------------------------------------------
     #create data nc file for ForeFire Layer Models
@@ -258,6 +258,7 @@ if __name__ == '__main__':
     var4dim = {'dim1': 'DIMX',   'dim2': 'DIMY',  'dim3': 'DIMZ', 'dim4': 'DIMT', 'type': 'float' }
     nc_variable  = {'vaporFlux' : var4dim, \
                     'heatFlux'  : var4dim, \
+                    'FRP'       : var4dim, \
                     'fuel'      : var4dim, \
                     'windU'     : var4dim, \
                     'windV'     : var4dim, \
@@ -266,7 +267,8 @@ if __name__ == '__main__':
                     'domain'    : {'dim1': 'domdim', 'type': 'c'}  }
 
     nc_attribute  = {'vaporFlux': attribute.vaporFlux,
-                    'heatFlux'  : attribute.heatFlux, \
+                    'heatFlux'  : attribute.heatFlux,\
+                    'FRP'       : attribute.FRP,\
                     'fuel'      : attribute.fuel, \
                     'windU'     : attribute.windU, \
                     'windV'     : attribute.windV, \
@@ -305,7 +307,10 @@ if __name__ == '__main__':
             nco.variables[key][:] = np.zeros(dimensions_value) + windV_in
         elif key == 'vaporFlux': 
             nco.variables[key][:] = np.zeros(dimensions_value) + 3
-
+        elif key == 'heatFlux': 
+            nco.variables[key][:] = np.zeros(dimensions_value) + 0
+        elif key == 'FRP': 
+            nco.variables[key][:] = np.zeros(dimensions_value) + 2
         else:
             nco.variables[key][:] = np.zeros(dimensions_value)
 
@@ -410,7 +415,7 @@ if __name__ == '__main__':
         
         #set param
         ff.setString('ForeFireDataDirectory','Inputs')
-        ff.setString('fireOutputDirectory','Outputs')
+        ff.setString('fireOutputDirectory','ForeFire/Outputs')
         ff.setInt('outputsUpdate',outputsUpdate)
         
         ff.setString('NetCDFfile',    mydatanc.split('/')[-1])
@@ -428,11 +433,13 @@ if __name__ == '__main__':
 
         ff.setDouble("bmapOutputUpdate",bmapOutputUpdate)
         ff.setInt("defaultHeatType",0)
+        ff.setInt("defaultFRPType",2)
+        ff.setInt("defaultVaporType",3)
 
         #set domain
         ff.setInt("atmoNX",nx)
         ff.setInt("atmoNY",ny)
-        ff.execute("FireDomain[sw=(%f,%f,0.);ne=(%f,%f,0.);t={%f}]"%(attribute.domain['SWx'],attribute.domain['SWy'],\
+        ff.execute("FireDomain[sw=(%f,%f,0.);ne=(%f,%f,0.);t=%f]"%(attribute.domain['SWx'],attribute.domain['SWy'],\
                                                                     attribute.domain['NEx'],attribute.domain['NEy'],  \
                                                                     attribute.domain['t0']))
 
@@ -442,6 +449,9 @@ if __name__ == '__main__':
         #set propagation model
         ff.addLayer("propagation","TroisPourcent","propagationModel")
         ff.addLayer("flux","heatFluxBasic","defaultHeatType")
+        #ff.addLayer("flux","FRP","defaultFRPType")
+        ff.addLayer("flux","vaporFluxBasic","defaultVaporType")
+
         
         fuelmap = ff.getDoubleArray("fuel").astype("int32")
         ff.addIndexLayer("table","fuel", extentLocal[0], extentLocal[2],0,  extentLocal[1]-extentLocal[0], extentLocal[3]-extentLocal[2], 0, fuelmap)
@@ -452,10 +462,10 @@ if __name__ == '__main__':
         if flag_extra_contour:
             print 'add an extra coutour'
             ff.execute("\tFireFront[t={%f}]".format(attribute.domain['t0']))
-            ff.execute("\t\tFireNode[loc=(090,100,0.);vel=(0.,0.,0.);t={%f}]".format(attribute.domain['t0']))
-            ff.execute("\t\tFireNode[loc=(090,300,0.);vel=(0.,0.,0.);t={%f}]".format(attribute.domain['t0']))
-            ff.execute("\t\tFireNode[loc=(100,300,0.);vel=(0.,0.,0.);t={%f}]".format(attribute.domain['t0']))
-            ff.execute("\t\tFireNode[loc=(100,100,0.);vel=(0.,0.,0.);t={%f}]".format(attribute.domain['t0']))
+            ff.execute("\t\tFireNode[loc=(090,100,0.);vel=(0.,0.,0.);t=%f]".format(attribute.domain['t0']))
+            ff.execute("\t\tFireNode[loc=(090,300,0.);vel=(0.,0.,0.);t=%f]".format(attribute.domain['t0']))
+            ff.execute("\t\tFireNode[loc=(100,300,0.);vel=(0.,0.,0.);t=%f]".format(attribute.domain['t0']))
+            ff.execute("\t\tFireNode[loc=(100,100,0.);vel=(0.,0.,0.);t=%f]".format(attribute.domain['t0']))
 
         #---------------------------------------------
         # run ForeFire simulation
@@ -463,19 +473,23 @@ if __name__ == '__main__':
         pathes = []
         step = 10
         N_step = 20
+        flux_out_ff_history = []
         for i in np.arange(1,N_step):
             print "goTo[t=%f]"%(i*step),
             ff.execute("goTo[t=%f]"%(i*step))
             
+            #FRP = ff.getDoubleArray("FRP")[:,:,0]
+            #plt.imshow(FRP.T,origin='lower',interpolation='nearest'); plt.show()
+
             flux2d = ff.getDoubleArray("heatFluxBasic")[:,:,0]
-            #plt.imshow(flux2d.T,origin='lower',interpolation='nearest'); plt.show()
             flux_out_ff =  (flux2d * atmo_dx * atmo_dy).sum() * 1.e-6
             flux_expected = depth_fireLine*length_fireLine*nominalHeatFlux * 1.e-6 
             print  '| flux out of ff = ', flux_out_ff, '| expected = ', flux_expected, '| ratio = ', flux_out_ff/flux_expected
             
             pathes += printToPathe( ff.execute("print[]"))
+            flux_out_ff_history.append(flux_out_ff)
 
-
+        plt.plot(flux_out_ff_history); plt.show()
         sys.exit()
         #---------------------------------------------
         # plot ForeFire perimeter
