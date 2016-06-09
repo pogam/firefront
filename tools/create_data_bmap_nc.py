@@ -487,9 +487,13 @@ if __name__ == '__main__':
             print  '| flux out of ff = ', flux_out_ff, '| expected = ', flux_expected, '| ratio = ', flux_out_ff/flux_expected
             
             pathes += printToPathe( ff.execute("print[]"))
-            flux_out_ff_history.append(flux_out_ff)
+            flux_out_ff_history.append(flux_out_ff/flux_expected)
 
-        plt.plot(flux_out_ff_history); plt.show()
+        ax = plt.subplot(111)
+        ax.plot(step*np.arange(1,N_step),np.array(flux_out_ff_history))
+        ax.set_ylabel('ratio:  heat_ff  /  heat_expected')
+        ax.set_xlabel('time (s)')
+        plt.show()
         sys.exit()
         #---------------------------------------------
         # plot ForeFire perimeter

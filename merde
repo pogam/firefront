@@ -1,0 +1,215 @@
+BurnupHeatFluxModel.cpp:#include "BurnupHeatFluxModel.h"
+BurnupHeatFluxModel.cpp:const string BurnupHeatFluxModel::name = "BurnUpHeatFlux";
+BurnupHeatFluxModel.cpp:int BurnupHeatFluxModel::isInitialized =
+BurnupHeatFluxModel.cpp:        FireDomain::registerFluxModelInstantiator(name, getBurnupHeatFluxModel );
+BurnupHeatFluxModel.cpp:FluxModel* getBurnupHeatFluxModel(const int& index, DataBroker* db) {
+BurnupHeatFluxModel.cpp:	return new BurnupHeatFluxModel(index, db);
+BurnupHeatFluxModel.cpp:BurnupHeatFluxModel::BurnupHeatFluxModel(
+BurnupHeatFluxModel.cpp:		const int & mindex, DataBroker* db) : FluxModel(mindex, db) {
+BurnupHeatFluxModel.cpp:	dataBroker->registerFluxModel(this);
+BurnupHeatFluxModel.cpp:BurnupHeatFluxModel::~BurnupHeatFluxModel() {
+BurnupHeatFluxModel.cpp:string BurnupHeatFluxModel::getName(){
+BurnupHeatFluxModel.cpp:double BurnupHeatFluxModel::getValue(double* valueOf
+CraterHeatFluxModel.cpp:#include "CraterHeatFluxModel.h"
+CraterHeatFluxModel.cpp:const string CraterHeatFluxModel::name = "CraterHeatFluxModel";
+CraterHeatFluxModel.cpp:FluxModel* getCraterHeatFluxModel(const int& index, DataBroker* db) {
+CraterHeatFluxModel.cpp:	return new CraterHeatFluxModel(index, db);
+CraterHeatFluxModel.cpp:int CraterHeatFluxModel::isInitialized =
+CraterHeatFluxModel.cpp:        FireDomain::registerFluxModelInstantiator(name, getCraterHeatFluxModel );
+CraterHeatFluxModel.cpp:CraterHeatFluxModel::CraterHeatFluxModel(
+CraterHeatFluxModel.cpp:	: FluxModel(mindex, db) {
+CraterHeatFluxModel.cpp:	dataBroker->registerFluxModel(this);
+CraterHeatFluxModel.cpp:CraterHeatFluxModel::~CraterHeatFluxModel() {
+CraterHeatFluxModel.cpp:string CraterHeatFluxModel::getName(){
+CraterHeatFluxModel.cpp:double CraterHeatFluxModel::getValue(double* valueOf
+CraterSO2FluxModel.cpp:#include "CraterSO2FluxModel.h"
+CraterSO2FluxModel.cpp:const string CraterSO2FluxModel::name = "CraterSO2Flux";
+CraterSO2FluxModel.cpp:FluxModel* getCraterSO2FluxModel(const int& index, DataBroker* db) {
+CraterSO2FluxModel.cpp:	return new CraterSO2FluxModel(index, db);
+CraterSO2FluxModel.cpp:int CraterSO2FluxModel::isInitialized =
+CraterSO2FluxModel.cpp:        FireDomain::registerFluxModelInstantiator(name, getCraterSO2FluxModel );
+CraterSO2FluxModel.cpp:CraterSO2FluxModel::CraterSO2FluxModel(
+CraterSO2FluxModel.cpp:	: FluxModel(mindex, db) {
+CraterSO2FluxModel.cpp:	dataBroker->registerFluxModel(this);
+CraterSO2FluxModel.cpp:CraterSO2FluxModel::~CraterSO2FluxModel() {
+CraterSO2FluxModel.cpp:string CraterSO2FluxModel::getName(){
+CraterSO2FluxModel.cpp:double CraterSO2FluxModel::getValue(double* valueOf
+CraterVaporFluxModel.cpp:#include "CraterVaporFluxModel.h"
+CraterVaporFluxModel.cpp:const string CraterVaporFluxModel::name = "CraterVaporFluxModel";
+CraterVaporFluxModel.cpp:FluxModel* getCraterVaporFluxModel(const int& index, DataBroker* db) {
+CraterVaporFluxModel.cpp:	return new CraterVaporFluxModel(index, db);
+CraterVaporFluxModel.cpp:int CraterVaporFluxModel::isInitialized =
+CraterVaporFluxModel.cpp:        FireDomain::registerFluxModelInstantiator(name, getCraterVaporFluxModel );
+CraterVaporFluxModel.cpp:CraterVaporFluxModel::CraterVaporFluxModel(
+CraterVaporFluxModel.cpp:	: FluxModel(mindex, db) {
+CraterVaporFluxModel.cpp:	dataBroker->registerFluxModel(this);
+CraterVaporFluxModel.cpp:CraterVaporFluxModel::~CraterVaporFluxModel() {
+CraterVaporFluxModel.cpp:string CraterVaporFluxModel::getName(){
+CraterVaporFluxModel.cpp:double CraterVaporFluxModel::getValue(double* valueOf
+DataBroker.cpp:	fluxDataGetters.resize(FireDomain::NUM_MAX_FLUXMODELS);
+DataBroker.cpp:	numFluxDataGetters.resize(FireDomain::NUM_MAX_FLUXMODELS);
+DataBroker.cpp:	optimizedFluxDataBroker = new bool[FireDomain::NUM_MAX_FLUXMODELS];
+DataBroker.cpp:	for (size_t i = 0; i < FireDomain::NUM_MAX_FLUXMODELS; i++) {
+DataBroker.cpp:void DataBroker::registerFluxModel(FluxModel* model) {
+DataBroker.cpp:	domain->registerFluxModel(model->index, model);
+DataBroker.cpp:		domain->fluxModelInstanciation(ind, modelName);
+DataBroker.cpp:void DataBroker::getFluxData(FluxModel* model, FFPoint& loc, const double& t) {
+DataBroker.cpp:	int numFluxModelsMax = 10;
+DataBroker.cpp:		int modelCount[numFluxModelsMax];
+DataBroker.cpp:		for (int i = 0; i < numFluxModelsMax; i++)
+DataBroker.cpp:int DataBroker::getFuelProperties(FFPoint loc, const double&t, FluxModel* model,
+DataBroker.cpp:int DataBroker::getMoisture(FFPoint loc, const double& t, FluxModel* model,
+DataBroker.cpp:int DataBroker::getAltitude(FFPoint loc, const double& t, FluxModel* model,
+DataBroker.cpp:int DataBroker::getWindU(FFPoint loc, const double& t, FluxModel* model,
+DataBroker.cpp:int DataBroker::getWindV(FFPoint loc, const double& t, FluxModel* model,
+FDCell.cpp:string FDCell::getFluxModelName(int fluxModelIndice){
+FDCell.cpp:	return domain->getFluxModelName(fluxModelIndice);
+FactorChemFluxModel.cpp:#include "FactorChemFluxModel.h"
+FactorChemFluxModel.cpp:const string FactorChemFluxModel::name = "factorChemFlux";
+FactorChemFluxModel.cpp:FluxModel* getFactorChemFluxModel(const int& index, DataBroker* db) {
+FactorChemFluxModel.cpp:	return new FactorChemFluxModel(index, db);
+FactorChemFluxModel.cpp:int FactorChemFluxModel::isInitialized =
+FactorChemFluxModel.cpp:        FireDomain::registerFluxModelInstantiator(name, getFactorChemFluxModel );
+FactorChemFluxModel.cpp:FactorChemFluxModel::FactorChemFluxModel(
+FactorChemFluxModel.cpp:	: FluxModel(mindex, db) {
+FactorChemFluxModel.cpp:	dataBroker->registerFluxModel(this);
+FactorChemFluxModel.cpp:FactorChemFluxModel::~FactorChemFluxModel() {
+FactorChemFluxModel.cpp:string FactorChemFluxModel::getName(){
+FactorChemFluxModel.cpp:double FactorChemFluxModel::getValue(double* valueOf
+FireDomain.cpp:	const size_t FireDomain::NUM_MAX_FLUXMODELS;
+FireDomain.cpp:	FluxModel* FireDomain::fluxModelsTable[FireDomain::NUM_MAX_FLUXMODELS];
+FireDomain.cpp:	FireDomain::FluxModelMap& FireDomain::flux_instantiatorMap(){
+FireDomain.cpp:		static FireDomain::FluxModelMap* inst = new FireDomain::FluxModelMap;
+FireDomain.cpp:	int FireDomain::registerFluxModelInstantiator(string modelname
+FireDomain.cpp:												  , FluxModelInstantiator func){
+FireDomain.cpp:		FluxModelMap::iterator fmodel = flux_instantiatorMap().find(modelname);
+FireDomain.cpp:	FluxModel* FireDomain::fluxModelInstanciation(const int& index, string modelname){
+FireDomain.cpp:		FluxModelMap::iterator fmodel;
+FireDomain.cpp:	void FireDomain::registerFluxModel(const int& index, FluxModel* model){
+FireDomain.cpp:		fluxModelsTable[index] = model;
+FireDomain.cpp:				FluxModel* model = fluxModelInstanciation(mindex, fmname);
+FireDomain.cpp:		size_t mindex = getFreeFluxModelIndex();
+FireDomain.cpp:		FluxModel* model = fluxModelInstanciation(mindex, fmname);
+FireDomain.cpp:			registerFluxModel(model->index, model);
+FireDomain.cpp:	size_t FireDomain::getFreeFluxModelIndex(){
+FireDomain.cpp:		while ( fluxModelsTable[mindex] != 0 ){
+FireDomain.cpp:			if(mindex >= NUM_MAX_FLUXMODELS -1){
+FireDomain.cpp:				cout<<"ERROR No mor flx models allowed, max:"<< NUM_MAX_FLUXMODELS<<endl;
+FireDomain.cpp:		if(fluxModelsTable[0] == NULL){
+FireDomain.cpp:		return fluxModelsTable[modelIndex]->getValueAt(loc, bt, et, at);
+FireDomain.cpp:		for ( size_t i = 0; i < NUM_MAX_FLUXMODELS; i++ ) fluxModelsTable[i] = NULL;
+FireDomain.cpp:	string FireDomain::getFluxModelName(int fluxModelIndice){
+FireDomain.cpp:		if (fluxModelIndice < (int)FireDomain::NUM_MAX_FLUXMODELS) {
+FireDomain.cpp:			if(fluxModelsTable[fluxModelIndice] != NULL)
+FireDomain.cpp:				return fluxModelsTable[fluxModelIndice]->getName();
+FluxModel.cpp:#include "FluxModel.h"
+FluxModel.cpp:FluxModel* getDefaultFluxModel(const int & mindex, DataBroker* db) {
+FluxModel.cpp:	return new FluxModel(mindex, db);
+FluxModel.cpp:FluxModel::FluxModel(const int & mindex, DataBroker* db)
+FluxModel.cpp:FluxModel::~FluxModel() {
+FluxModel.cpp:double FluxModel::getValueAt(FFPoint& loc
+ForeFireV1HeatFluxModel.cpp:#include "ForeFireV1HeatFluxModel.h"
+ForeFireV1HeatFluxModel.cpp:const string ForeFireV1HeatFluxModel::name = "ForeFireV1HeatFlux";
+ForeFireV1HeatFluxModel.cpp:int ForeFireV1HeatFluxModel::isInitialized =
+ForeFireV1HeatFluxModel.cpp:        FireDomain::registerFluxModelInstantiator(name, getForeFireV1HeatFluxModel );
+ForeFireV1HeatFluxModel.cpp:FluxModel* getForeFireV1HeatFluxModel(const int& index, DataBroker* db) {
+ForeFireV1HeatFluxModel.cpp:	return new ForeFireV1HeatFluxModel(index, db);
+ForeFireV1HeatFluxModel.cpp:ForeFireV1HeatFluxModel::ForeFireV1HeatFluxModel(
+ForeFireV1HeatFluxModel.cpp:		const int & mindex, DataBroker* db) : FluxModel(mindex, db) {
+ForeFireV1HeatFluxModel.cpp:	dataBroker->registerFluxModel(this);
+ForeFireV1HeatFluxModel.cpp:ForeFireV1HeatFluxModel::~ForeFireV1HeatFluxModel() {
+ForeFireV1HeatFluxModel.cpp:string ForeFireV1HeatFluxModel::getName(){
+ForeFireV1HeatFluxModel.cpp:double ForeFireV1HeatFluxModel::texp(double& t, double& tau){
+ForeFireV1HeatFluxModel.cpp:double ForeFireV1HeatFluxModel::tauexp(double& t, double& tau){
+ForeFireV1HeatFluxModel.cpp:double ForeFireV1HeatFluxModel::getValue(double* valueOf
+ForeFireV1VaporFluxModel.cpp:#include "ForeFireV1VaporFluxModel.h"
+ForeFireV1VaporFluxModel.cpp:const string ForeFireV1VaporFluxModel::name = "ForeFireV1VaporFlux";
+ForeFireV1VaporFluxModel.cpp:int ForeFireV1VaporFluxModel::isInitialized =
+ForeFireV1VaporFluxModel.cpp:        FireDomain::registerFluxModelInstantiator(name, getForeFireV1VaporFluxModel );
+ForeFireV1VaporFluxModel.cpp:FluxModel* getForeFireV1VaporFluxModel(const int& index, DataBroker* db) {
+ForeFireV1VaporFluxModel.cpp:	return new ForeFireV1VaporFluxModel(index, db);
+ForeFireV1VaporFluxModel.cpp:ForeFireV1VaporFluxModel::ForeFireV1VaporFluxModel(
+ForeFireV1VaporFluxModel.cpp:		const int & mindex, DataBroker* db) : FluxModel(mindex, db) {
+ForeFireV1VaporFluxModel.cpp:	dataBroker->registerFluxModel(this);
+ForeFireV1VaporFluxModel.cpp:ForeFireV1VaporFluxModel::~ForeFireV1VaporFluxModel() {
+ForeFireV1VaporFluxModel.cpp:string ForeFireV1VaporFluxModel::getName(){
+ForeFireV1VaporFluxModel.cpp:double ForeFireV1VaporFluxModel::texp(double& t, double& tau){
+ForeFireV1VaporFluxModel.cpp:double ForeFireV1VaporFluxModel::tauexp(double& t, double& tau){
+ForeFireV1VaporFluxModel.cpp:double ForeFireV1VaporFluxModel::getValue(double* valueOf
+HeatFluxBasicModel.cpp:        FireDomain::registerFluxModelInstantiator(name, getHeatFluxBasicModel );
+HeatFluxBasicModel.cpp:FluxModel* getHeatFluxBasicModel(const int& index, DataBroker* db) {
+HeatFluxBasicModel.cpp:		const int & mindex, DataBroker* db) : FluxModel(mindex, db) {
+HeatFluxBasicModel.cpp:	dataBroker->registerFluxModel(this);
+HeatFluxNominalModel.cpp:        FireDomain::registerFluxModelInstantiator(name, getHeatFluxNominalModel );
+HeatFluxNominalModel.cpp:FluxModel* getHeatFluxNominalModel(const int& index, DataBroker* db) {
+HeatFluxNominalModel.cpp:		const int & mindex, DataBroker* db) : FluxModel(mindex, db) {
+HeatFluxNominalModel.cpp:	dataBroker->registerFluxModel(this);
+LavaCO2FluxModel.cpp: * LavaCO2FluxModel.cpp
+LavaCO2FluxModel.cpp:#include "LavaCO2FluxModel.h"
+LavaCO2FluxModel.cpp:const string LavaCO2FluxModel::name = "LavaCO2Flux";
+LavaCO2FluxModel.cpp:FluxModel* getLavaCO2FluxModel(const int& index, DataBroker* db) {
+LavaCO2FluxModel.cpp:	return new LavaCO2FluxModel(index, db);
+LavaCO2FluxModel.cpp:int LavaCO2FluxModel::isInitialized =
+LavaCO2FluxModel.cpp:        FireDomain::registerFluxModelInstantiator(name, getLavaCO2FluxModel );
+LavaCO2FluxModel.cpp:LavaCO2FluxModel::LavaCO2FluxModel(
+LavaCO2FluxModel.cpp:	: FluxModel(mindex, db) {
+LavaCO2FluxModel.cpp:dataBroker->registerFluxModel(this);
+LavaCO2FluxModel.cpp:LavaCO2FluxModel::~LavaCO2FluxModel() {
+LavaCO2FluxModel.cpp:string LavaCO2FluxModel::getName(){
+LavaCO2FluxModel.cpp:double LavaCO2FluxModel::getValue(double* valueOf
+LavaHCLFluxModel.cpp:#include "LavaHCLFluxModel.h"
+LavaHCLFluxModel.cpp:const string LavaHCLFluxModel::name = "LavaHCLFlux";
+LavaHCLFluxModel.cpp:FluxModel* getLavaHCLFluxModel(const int& index, DataBroker* db) {
+LavaHCLFluxModel.cpp:	return new LavaHCLFluxModel(index, db);
+LavaHCLFluxModel.cpp:int LavaHCLFluxModel::isInitialized =
+LavaHCLFluxModel.cpp:        FireDomain::registerFluxModelInstantiator(name, getLavaHCLFluxModel );
+LavaHCLFluxModel.cpp:LavaHCLFluxModel::LavaHCLFluxModel(
+LavaHCLFluxModel.cpp:	: FluxModel(mindex, db) {
+LavaHCLFluxModel.cpp:	dataBroker->registerFluxModel(this);
+LavaHCLFluxModel.cpp:LavaHCLFluxModel::~LavaHCLFluxModel() {
+LavaHCLFluxModel.cpp:string LavaHCLFluxModel::getName(){
+LavaHCLFluxModel.cpp:double LavaHCLFluxModel::getValue(double* valueOf
+LavaHeatFluxModel.cpp:#include "LavaHeatFluxModel.h"
+LavaHeatFluxModel.cpp:const string LavaHeatFluxModel::name = "LavaHeatFluxModel";
+LavaHeatFluxModel.cpp:FluxModel* getLavaHeatFluxModel(const int& index, DataBroker* db) {
+LavaHeatFluxModel.cpp:	return new LavaHeatFluxModel(index, db);
+LavaHeatFluxModel.cpp:int LavaHeatFluxModel::isInitialized =
+LavaHeatFluxModel.cpp:        FireDomain::registerFluxModelInstantiator(name, getLavaHeatFluxModel );
+LavaHeatFluxModel.cpp:LavaHeatFluxModel::LavaHeatFluxModel(
+LavaHeatFluxModel.cpp:	: FluxModel(mindex, db) {
+LavaHeatFluxModel.cpp:	dataBroker->registerFluxModel(this);
+LavaHeatFluxModel.cpp:LavaHeatFluxModel::~LavaHeatFluxModel() {
+LavaHeatFluxModel.cpp:string LavaHeatFluxModel::getName(){
+LavaHeatFluxModel.cpp:double LavaHeatFluxModel::getValue(double* valueOf
+LavaLazeFluxModel.cpp:#include "LavaLazeFluxModel.h"
+LavaLazeFluxModel.cpp:const string LavaLazeFluxModel::name = "LavaLazeFlux";
+LavaLazeFluxModel.cpp:FluxModel* getLavaLazeFluxModel(const int& index, DataBroker* db) {
+LavaLazeFluxModel.cpp:	return new LavaLazeFluxModel(index, db);
+LavaLazeFluxModel.cpp:int LavaLazeFluxModel::isInitialized =
+LavaLazeFluxModel.cpp:        FireDomain::registerFluxModelInstantiator(name, getLavaLazeFluxModel );
+LavaLazeFluxModel.cpp:LavaLazeFluxModel::LavaLazeFluxModel(
+LavaLazeFluxModel.cpp:	: FluxModel(mindex, db) {
+LavaLazeFluxModel.cpp:	dataBroker->registerFluxModel(this);
+LavaLazeFluxModel.cpp:LavaLazeFluxModel::~LavaLazeFluxModel() {
+LavaLazeFluxModel.cpp:string LavaLazeFluxModel::getName(){
+LavaLazeFluxModel.cpp:double LavaLazeFluxModel::getValue(double* valueOf
+LavaSO2FluxModel.cpp:#include "LavaSO2FluxModel.h"
+LavaSO2FluxModel.cpp:const string LavaSO2FluxModel::name = "LavaSO2Flux";
+LavaSO2FluxModel.cpp:FluxModel* getLavaSO2FluxModel(const int& index, DataBroker* db) {
+LavaSO2FluxModel.cpp:	return new LavaSO2FluxModel(index, db);
+LavaSO2FluxModel.cpp:int LavaSO2FluxModel::isInitialized =
+LavaSO2FluxModel.cpp:        FireDomain::registerFluxModelInstantiator(name, getLavaSO2FluxModel );
+LavaSO2FluxModel.cpp:LavaSO2FluxModel::LavaSO2FluxModel(
+LavaSO2FluxModel.cpp:	: FluxModel(mindex, db) {
+LavaSO2FluxModel.cpp:	dataBroker->registerFluxModel(this);
+LavaSO2FluxModel.cpp:LavaSO2FluxModel::~LavaSO2FluxModel() {
+LavaSO2FluxModel.cpp:string LavaSO2FluxModel::getName(){
+LavaSO2FluxModel.cpp:double LavaSO2FluxModel::getValue(double* valueOf
+VaporFluxBasicModel.cpp:FluxModel* getVaporFluxBasicModel(const int& index, DataBroker* db) {
+VaporFluxBasicModel.cpp:        FireDomain::registerFluxModelInstantiator(name, getVaporFluxBasicModel );
+VaporFluxBasicModel.cpp:		const int & mindex, DataBroker* db) : FluxModel(mindex, db) {
+VaporFluxBasicModel.cpp:	dataBroker->registerFluxModel(this);
+VaporFluxNominalModel.cpp:FluxModel* getVaporFluxNominalModel(const int& index, DataBroker* db) {
+VaporFluxNominalModel.cpp:        FireDomain::registerFluxModelInstantiator(name, getVaporFluxNominalModel );
+VaporFluxNominalModel.cpp:		const int & mindex, DataBroker* db) : FluxModel(mindex, db) {
+VaporFluxNominalModel.cpp:	dataBroker->registerFluxModel(this);

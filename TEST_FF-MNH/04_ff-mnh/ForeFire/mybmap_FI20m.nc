@@ -1,1 +1,0 @@
-../../03_ff/Inputs/mybmap_FI20m.nc

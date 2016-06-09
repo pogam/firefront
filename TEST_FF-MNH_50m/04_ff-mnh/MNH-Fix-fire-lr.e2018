@@ -1,0 +1,15 @@
++ set -e
+++ wc -l
++ ncpus=96
++ rm -f 'FI40.*lfi' 'FI40.*des' 'FI40.*nc4'
++ rm -f INIFILE.des INIFILE.lfi INIFILE.nc4
++ ln -fs ../01_prep_ideal_case/FIRE40m.des ../01_prep_ideal_case/FIRE40m.lfi ../01_prep_ideal_case/FIRE40m.nc4 .
++ ln -fs ../01_prep_ideal_case/INIFILE.des ../01_prep_ideal_case/INIFILE.lfi ../01_prep_ideal_case/INIFILE.nc4 .
++ /shared/openmpi_64/bin/mpirun -np 64 UNLIMITED MESONH-LXifortI4-MNH-V5-2-0-MPIAUTO-DEBUG
+mpirun: killing job...
+
+--------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 6949 on node node020 exited on signal 0 (Unknown signal 0).
+--------------------------------------------------------------------------
+mpirun: clean termination accomplished
+

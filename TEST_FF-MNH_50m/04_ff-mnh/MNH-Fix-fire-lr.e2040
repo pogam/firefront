@@ -1,0 +1,13 @@
++ set -e
+++ wc -l
++ ncpus=32
++ rm -f 'FI50.*lfi' 'FI50.*des' 'FI50.*nc4'
++ rm -f INIFILE.des INIFILE.lfi INIFILE.nc4
++ ln -fs ../01_prep_ideal_case/FIRE50m.des ../01_prep_ideal_case/FIRE50m.lfi ../01_prep_ideal_case/FIRE50m.nc4 .
++ ln -fs ../01_prep_ideal_case/INIFILE.des ../01_prep_ideal_case/INIFILE.lfi ../01_prep_ideal_case/INIFILE.nc4 .
++ /shared/openmpi_64/bin/mpirun -np ncpus UNLIMITED MESONH-LXifortI4-MNH-V5-2-1-MPIAUTO-O2
+
+Wall Time	190m36.798s
+User Mode	378m58.450s
+Kernel Mode	1030m48.357s
+CPU Usage	739.65%

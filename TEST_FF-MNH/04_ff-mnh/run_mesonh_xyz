@@ -1,3 +1,0 @@
-ln -fs ../01_prep_ideal_case/FIRE20m.{des,lfi,nc4} .
-ln -fs ../01_prep_ideal_case/INIFILE.{des,lfi,nc4} .
-time UNLIMITED  MESONH${XYZ}

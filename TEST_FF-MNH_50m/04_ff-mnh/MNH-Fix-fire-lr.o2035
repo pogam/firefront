@@ -1,0 +1,8 @@
+Working directory is /data/RONAN/MesoNH/FixFire_lowRes/04_ff-mnh
+Running on host node020
+Time is Wed Jun 8 17:12:33 CDT 2016
+Directory is /data/RONAN/MesoNH/FixFire_lowRes/04_ff-mnh
+The following processors are allocated to this job:
+node020 node020 node020 node020 node020 node020 node020 node020 node019 node019 node019 node019 node019 node019 node019 node019 node018 node018 node018 node018 node018 node018 node018 node018 node017 node017 node017 node017 node017 node017 node017 node017 node016 node016 node016 node016 node016 node016 node016 node016
+ hello world from rank=           0  nproc=          40
+ NF_OPEN: INIFILE.nc4

@@ -1,0 +1,152 @@
++ set -e
+++ wc -l
++ ncpus=96
++ rm -f 'FI40.*lfi' 'FI40.*des' 'FI40.*nc4'
++ rm -f INIFILE.des INIFILE.lfi INIFILE.nc4
++ ln -fs ../01_prep_ideal_case/FIRE40m.des ../01_prep_ideal_case/FIRE40m.lfi ../01_prep_ideal_case/FIRE40m.nc4 .
++ ln -fs ../01_prep_ideal_case/INIFILE.des ../01_prep_ideal_case/INIFILE.lfi ../01_prep_ideal_case/INIFILE.nc4 .
++ /shared/openmpi_64/bin/mpirun -np 90 UNLIMITED MESONH-LXifortI4-MNH-V5-2-0-MPIAUTO-DEBUG
+forrtl: severe (71): integer divide by zero
+Image              PC                Routine            Line        Source             
+libmpi.so.0        00007FE9EB0EB742  Unknown               Unknown  Unknown
+libmpi.so.0        00007FE9EB0EBC4D  Unknown               Unknown  Unknown
+libmpi.so.0        00007FE9EB0C2005  Unknown               Unknown  Unknown
+libmpi_f77.so.0    00007FE9EB36537A  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000293EAA6  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  00000000012D4684  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BCB5  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BBDC  Unknown               Unknown  Unknown
+libc.so.6          00000036BC41ED1D  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BAD9  Unknown               Unknown  Unknown
+forrtl: severe (71): integer divide by zero
+Image              PC                Routine            Line        Source             
+libmpi.so.0        00007F5F96395742  Unknown               Unknown  Unknown
+libmpi.so.0        00007F5F96395C4D  Unknown               Unknown  Unknown
+libmpi.so.0        00007F5F9636C005  Unknown               Unknown  Unknown
+libmpi_f77.so.0    00007F5F9660F37A  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000293EAA6  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  00000000012D4684  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BCB5  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BBDC  Unknown               Unknown  Unknown
+libc.so.6          00000036BC41ED1D  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BAD9  Unknown               Unknown  Unknown
+forrtl: severe (71): integer divide by zero
+Image              PC                Routine            Line        Source             
+libmpi.so.0        00007F375A2A3742  Unknown               Unknown  Unknown
+libmpi.so.0        00007F375A2A3C4D  Unknown               Unknown  Unknown
+libmpi.so.0        00007F375A27A005  Unknown               Unknown  Unknown
+libmpi_f77.so.0    00007F375A51D37A  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000293EAA6  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  00000000012D4684  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BCB5  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BBDC  Unknown               Unknown  Unknown
+libc.so.6          00000036BC41ED1D  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BAD9  Unknown               Unknown  Unknown
+forrtl: severe (71): integer divide by zero
+Image              PC                Routine            Line        Source             
+libmpi.so.0        00007FFEF623E742  Unknown               Unknown  Unknown
+libmpi.so.0        00007FFEF623EC4D  Unknown               Unknown  Unknown
+libmpi.so.0        00007FFEF6215005  Unknown               Unknown  Unknown
+libmpi_f77.so.0    00007FFEF64B837A  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000293EAA6  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  00000000012D4684  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BCB5  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BBDC  Unknown               Unknown  Unknown
+libc.so.6          00000034F921ED1D  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BAD9  Unknown               Unknown  Unknown
+forrtl: severe (71): integer divide by zero
+Image              PC                Routine            Line        Source             
+libmpi.so.0        00007FAD5A29B742  Unknown               Unknown  Unknown
+libmpi.so.0        00007FAD5A29BC4D  Unknown               Unknown  Unknown
+libmpi.so.0        00007FAD5A272005  Unknown               Unknown  Unknown
+libmpi_f77.so.0    00007FAD5A51537A  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000293EAA6  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  00000000012D4684  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BCB5  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BBDC  Unknown               Unknown  Unknown
+libc.so.6          00000034F921ED1D  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BAD9  Unknown               Unknown  Unknown
+forrtl: severe (71): integer divide by zero
+Image              PC                Routine            Line        Source             
+libmpi.so.0        00007FB057AB1742  Unknown               Unknown  Unknown
+libmpi.so.0        00007FB057AB1C4D  Unknown               Unknown  Unknown
+libmpi.so.0        00007FB057A88005  Unknown               Unknown  Unknown
+libmpi_f77.so.0    00007FB057D2B37A  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000293EAA6  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  00000000012D4684  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BCB5  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BBDC  Unknown               Unknown  Unknown
+libc.so.6          000000373901ED1D  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BAD9  Unknown               Unknown  Unknown
+forrtl: severe (71): integer divide by zero
+Image              PC                Routine            Line        Source             
+libmpi.so.0        00007FE408977742  Unknown               Unknown  Unknown
+libmpi.so.0        00007FE408977C4D  Unknown               Unknown  Unknown
+libmpi.so.0        00007FE40894E005  Unknown               Unknown  Unknown
+libmpi_f77.so.0    00007FE408BF137A  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000293EAA6  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  00000000012D4684  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BCB5  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BBDC  Unknown               Unknown  Unknown
+libc.so.6          000000373901ED1D  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BAD9  Unknown               Unknown  Unknown
+forrtl: severe (71): integer divide by zero
+Image              PC                Routine            Line        Source             
+libmpi.so.0        00007FFE00461742  Unknown               Unknown  Unknown
+libmpi.so.0        00007FFE00461C4D  Unknown               Unknown  Unknown
+libmpi.so.0        00007FFE00438005  Unknown               Unknown  Unknown
+libmpi_f77.so.0    00007FFE006DB37A  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000293EAA6  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  00000000012D4684  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BCB5  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BBDC  Unknown               Unknown  Unknown
+libc.so.6          000000373901ED1D  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BAD9  Unknown               Unknown  Unknown
+[node013][[47931,1],56][btl_tcp_frag.c:214:mca_btl_tcp_frag_recv] [node016][[47931,1],37][btl_tcp_frag.c:214:mca_btl_tcp_frag_recv] [node015][[47931,1],41][btl_tcp_frag.c:214:mca_btl_tcp_frag_recv] mca_btl_tcp_frag_recv: readv failed: Connection reset by peer (104)
+[node013][[47931,1],61][btl_tcp_frag.c:214:mca_btl_tcp_frag_recv] mca_btl_tcp_frag_recv: readv failed: Connection reset by peer (104)mca_btl_tcp_frag_recv: readv failed: Connection reset by peer (104)mca_btl_tcp_frag_recv: readv failed: Connection reset by peer (104)
+
+
+[node013][[47931,1],60][btl_tcp_frag.c:214:mca_btl_tcp_frag_recv] mca_btl_tcp_frag_recv: readv failed: Connection reset by peer (104)
+[node016][[47931,1],39][btl_tcp_frag.c:214:mca_btl_tcp_frag_recv] mca_btl_tcp_frag_recv: readv failed: Connection reset by peer (104)
+forrtl: severe (71): integer divide by zero
+Image              PC                Routine            Line        Source             
+libmpi.so.0        00007F6920569742  Unknown               Unknown  Unknown
+libmpi.so.0        00007F6920569C4D  Unknown               Unknown  Unknown
+libmpi.so.0        00007F6920540005  Unknown               Unknown  Unknown
+libmpi_f77.so.0    00007F69207E337A  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000293EAA6  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  00000000012D4684  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BCB5  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BBDC  Unknown               Unknown  Unknown
+libc.so.6          0000003E5361ED1D  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BAD9  Unknown               Unknown  Unknown
+--------------------------------------------------------------------------
+mpirun has exited due to process rank 62 with PID 30857 on
+node node013 exiting without calling "finalize". This may
+have caused other processes in the application to be
+terminated by signals sent by mpirun (as reported here).
+--------------------------------------------------------------------------
+forrtl: severe (71): integer divide by zero
+Image              PC                Routine            Line        Source             
+libmpi.so.0        00007FFEED495742  Unknown               Unknown  Unknown
+libmpi.so.0        00007FFEED495C4D  Unknown               Unknown  Unknown
+libmpi.so.0        00007FFEED46C005  Unknown               Unknown  Unknown
+libmpi_f77.so.0    00007FFEED70F37A  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000293EAA6  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  00000000012D4684  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BCB5  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BBDC  Unknown               Unknown  Unknown
+libc.so.6          0000003E5361ED1D  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BAD9  Unknown               Unknown  Unknown
+forrtl: severe (71): integer divide by zero
+Image              PC                Routine            Line        Source             
+libmpi.so.0        00007F6627334742  Unknown               Unknown  Unknown
+libmpi.so.0        00007F6627334C4D  Unknown               Unknown  Unknown
+libmpi.so.0        00007F662730B005  Unknown               Unknown  Unknown
+libmpi_f77.so.0    00007F66275AE37A  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000293EAA6  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  00000000012D4684  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BCB5  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BBDC  Unknown               Unknown  Unknown
+libc.so.6          0000003E5361ED1D  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000053BAD9  Unknown               Unknown  Unknown

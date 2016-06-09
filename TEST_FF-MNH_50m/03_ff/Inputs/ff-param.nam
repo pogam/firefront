@@ -1,0 +1,27 @@
+&FF_RONAN
+    x_location_fireLine = 600.   
+    length_fireLine      = 750.
+    depth_fireLine       = 25.
+    flag_run_ff        = .True.
+    flag_extra_contour = .False./
+    
+&FF_PARAM  
+    fuelsTableFile=fuels.ff
+
+    propagationModel    = TroisPourcent
+    spatialIncrement    = 0.3
+    perimeterResolution = 1.
+
+    minimalPropagativeFrontDepth = 1.
+    burningDuration              = 7200.
+    nominalHeatFlux              = 1.8e6
+    nominalVaporFlux             = 0.2
+
+    watchedProc      = -2
+    outputsUpdate    = 10
+    bmapOutputUpdate = 300
+    
+    fireOutputDirectory   = 'ForeFire/Outputs/'
+    atmoOutputDirectories = 'MODEL1'
+    outputDirectories     = 'MODEL1/'  
+    /

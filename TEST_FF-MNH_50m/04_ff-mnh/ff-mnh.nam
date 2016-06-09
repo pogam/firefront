@@ -1,0 +1,14 @@
+&NAM_DYNn       XTSTEP = .5, XRIMKMAX = .0, LHORELAX_UVWTH=F, LHORELAX_RV=F,
+                        LVE_RELAX = T, XT4DIFU =60. , LITRADJ=T /
+
+&NAM_DYN        XSEGLEN = 5200.0, LCORIO = F, LNUMDIFU = T,
+                        XALKTOP = 0.005, XALZBOT = 1200 /
+
+&NAM_FMOUT      XFMOUT(1,1)   = 10., 
+                XFMOUT(1,2)   = 100.,  XFMOUT(1,3)  = 400.,  XFMOUT(1,4)  = 700.,  XFMOUT(1,5)   = 1000., XFMOUT(1,6)  = 1300., XFMOUT(1,7)  = 1600.,
+                XFMOUT(1,8)   = 1900., XFMOUT(1,9)  = 2200., XFMOUT(1,10) = 2500., XFMOUT(1,11)  = 2800., XFMOUT(1,12) = 3100., XFMOUT(1,13) = 3400., 
+                XFMOUT(1,14)  = 3700., XFMOUT(1,15) = 4000., XFMOUT(1,16) = 4300., XFMOUT(1,17)  = 4600., XFMOUT(1,18) = 4900., XFMOUT(1,19) = 5200./  
+
+&NAM_FOREFIRE   LFOREFIRE=T, COUPLINGRES=100,
+                NFFSCALARS=2, FFSVNAMES(1)='BRatio', FFSVNAMES(1)='FRP',
+                FFOUTUPS(1)=100, PHYSOUT(1)=100, FLOWOUT(1)=100, CHEMOUT(1)=0/

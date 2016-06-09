@@ -1,6 +1,0 @@
-set -x
-rm -f RELIEF3D.* OUTPUT_LISTING* pipe* *.tex
-rm -f FIRE20m.* OUTPUT_LISTING* pipe* *.tex
-rm -f *~
-time UNLIMITED PREP_IDEAL_CASE${XYZ}          
-#time PREP_IDEAL_CASE${XYZ}          

@@ -1,0 +1,28 @@
++ set -e
+++ wc -l
++ ncpus=40
++ rm -f 'FI40.*lfi' 'FI40.*des' 'FI40.*nc4'
++ rm -f INIFILE.des INIFILE.lfi INIFILE.nc4
++ ln -fs ../01_prep_ideal_case/FIRE40m.des ../01_prep_ideal_case/FIRE40m.lfi ../01_prep_ideal_case/FIRE40m.nc4 .
++ ln -fs ../01_prep_ideal_case/INIFILE.des ../01_prep_ideal_case/INIFILE.lfi ../01_prep_ideal_case/INIFILE.nc4 .
++ /shared/openmpi_64/bin/mpirun -np ncpus UNLIMITED MESONH-LXifortI4-MNH-V5-2-1-MPIAUTO-O2
+forrtl: severe (71): integer divide by zero
+Image              PC                Routine            Line        Source             
+libmpi.so.0        00007F11C2B1A742  Unknown               Unknown  Unknown
+libmpi.so.0        00007F11C2B1AC4D  Unknown               Unknown  Unknown
+libmpi.so.0        00007F11C2AF1005  Unknown               Unknown  Unknown
+libmpi_f77.so.0    00007F11C2D9437A  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  0000000001170CE6  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  0000000000A01428  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  00000000005091CC  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000050912C  Unknown               Unknown  Unknown
+libc.so.6          0000003B5401ED1D  Unknown               Unknown  Unknown
+MESONH-LXifortI4-  000000000050900D  Unknown               Unknown  Unknown
+[node016][[63228,1],36][btl_tcp_frag.c:214:mca_btl_tcp_frag_recv] mca_btl_tcp_frag_recv: readv failed: Connection reset by peer (104)
+[node019][[63228,1],9][btl_tcp_frag.c:214:mca_btl_tcp_frag_recv] mca_btl_tcp_frag_recv: readv failed: Connection reset by peer (104)
+--------------------------------------------------------------------------
+mpirun has exited due to process rank 28 with PID 19435 on
+node node017 exiting without calling "finalize". This may
+have caused other processes in the application to be
+terminated by signals sent by mpirun (as reported here).
+--------------------------------------------------------------------------
