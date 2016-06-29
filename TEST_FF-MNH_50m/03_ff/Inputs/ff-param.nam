@@ -2,6 +2,7 @@
     x_location_fireLine = 600.   
     length_fireLine      = 750.
     depth_fireLine       = 25.
+    time_start_fireLine  = 10.
     flag_run_ff        = .True.
     flag_extra_contour = .False./
     
@@ -22,6 +23,6 @@
     bmapOutputUpdate = 300
     
     fireOutputDirectory   = 'ForeFire/Outputs/'
-    atmoOutputDirectories = 'MODEL1'
+    atmoOutputDirectories = 'MODEL1/'
     outputDirectories     = 'MODEL1/'  
     /

@@ -196,7 +196,7 @@ if __name__ == '__main__':
     x_location_fireLine = ronan_param['x_location_fireLine']  
     length_fireLine     = ronan_param['length_fireLine'] 
     depth_fireLine      = ronan_param['depth_fireLine'] 
-    
+    time_start_fireLine = ronan_param['time_start_fireLine']
     #extra perimeter
     flag_run_ff        = ronan_param['flag_run_ff'] 
     flag_extra_contour = ronan_param['flag_extra_contour'] 
@@ -382,7 +382,7 @@ if __name__ == '__main__':
                                            (grid_y2d>=(y_center-.5*y_line)      ) & (grid_y2d<=(y_center+.5*y_line))  )
                 values = np.zeros(dimensions_value[::-1]) -9999
                 try:
-                    values[idx_line_start] = 0
+                    values[idx_line_start] = time_start_fireLine
                     #plt.imshow(values.T,origin='lower',interpolation='nearest',\
                     #       extent=(grid_x.min(),grid_x.max()+BMapsResolution,grid_y.min(),grid_y.max()+BMapsResolution))
                     #plt.show()
@@ -471,7 +471,7 @@ if __name__ == '__main__':
         # run ForeFire simulation
         #---------------------------------------------
         pathes = []
-        step = 10
+        step = 1
         N_step = 20
         flux_out_ff_history = []
         for i in np.arange(1,N_step):
