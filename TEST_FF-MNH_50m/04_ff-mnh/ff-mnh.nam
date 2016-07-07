@@ -1,7 +1,7 @@
 &NAM_DYNn       XTSTEP = .5, XRIMKMAX = .0, LHORELAX_UVWTH=F, LHORELAX_RV=F,
                         LVE_RELAX = T, XT4DIFU =60. , LITRADJ=T /
 
-&NAM_DYN        XSEGLEN = 5200.0, LCORIO = F, LNUMDIFU = T,
+&NAM_DYN        XSEGLEN = 1600.0, LCORIO = F, LNUMDIFU = T,
                         XALKTOP = 0.005, XALZBOT = 1200 /
 
 &NAM_FMOUT      XFMOUT(1,1)   = 10., 

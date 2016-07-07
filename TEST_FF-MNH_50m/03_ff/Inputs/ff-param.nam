@@ -1,11 +1,11 @@
 &FF_RONAN
-    x_location_fireLine = 600.   
-    length_fireLine      = 750.
-    depth_fireLine       = 25.
-    time_start_fireLine  = 10.
+    x_location_fireLine  = 600., 700.   
+    length_fireLine      = 750. , 750.
+    depth_fireLine       = 25.  , 25.
+    time_start_fireLine  = 0.   , 10.
     flag_run_ff        = .True.
-    flag_extra_contour = .False./
-    
+    flag_extra_contour = .False./   
+
 &FF_PARAM  
     fuelsTableFile=fuels.ff
 
