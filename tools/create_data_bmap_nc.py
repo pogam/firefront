@@ -197,6 +197,7 @@ if __name__ == '__main__':
     length_fireLine     = ronan_param['length_fireLine'] 
     depth_fireLine      = ronan_param['depth_fireLine'] 
     time_start_fireLine = ronan_param['time_start_fireLine']
+    nbre_fire_line      = len(time_start_fireLine)
     #extra perimeter
     flag_run_ff        = ronan_param['flag_run_ff'] 
     flag_extra_contour = ronan_param['flag_extra_contour'] 
@@ -375,20 +376,21 @@ if __name__ == '__main__':
 
         if   key == 'arrival_time_of_front': 
                 destAT = nco.variables['arrival_time_of_front']
-                x_line =  x_location_fireLine
-                y_line =  length_fireLine
-                grid_y2d, grid_x2d = np.meshgrid(grid_y, grid_x)
-                idx_line_start = np.where( (grid_x2d>=(x_line  - depth_fireLine)) & (grid_x2d<= x_line             ) &\
-                                           (grid_y2d>=(y_center-.5*y_line)      ) & (grid_y2d<=(y_center+.5*y_line))  )
                 values = np.zeros(dimensions_value[::-1]) -9999
-                try:
-                    values[idx_line_start] = time_start_fireLine
-                    #plt.imshow(values.T,origin='lower',interpolation='nearest',\
-                    #       extent=(grid_x.min(),grid_x.max()+BMapsResolution,grid_y.min(),grid_y.max()+BMapsResolution))
-                    #plt.show()
-                    #pdb.set_trace()
-                except IndexError:
-                    pdb.set_trace()
+                grid_y2d, grid_x2d = np.meshgrid(grid_y, grid_x)
+                for i_line in range(nbre_fire_line):
+                    x_line =  x_location_fireLine[i_line]
+                    y_line =  length_fireLine[i_line]
+                    idx_line_start = np.where( (grid_x2d>=(x_line  - depth_fireLine[i_line])) & (grid_x2d<= x_line             ) &\
+                                               (grid_y2d>=(y_center-.5*y_line)              ) & (grid_y2d<=(y_center+.5*y_line))  )
+                    try:
+                        values[idx_line_start] = time_start_fireLine[i_line]
+                        #plt.imshow(values.T,origin='lower',interpolation='nearest',\
+                        #       extent=(grid_x.min(),grid_x.max()+BMapsResolution,grid_y.min(),grid_y.max()+BMapsResolution))
+                        #plt.show()
+                        #pdb.set_trace()
+                    except IndexError:
+                        pdb.set_trace()
                 destAT[:] = values.T
 
         elif key == 'cell_active': 
@@ -471,10 +473,13 @@ if __name__ == '__main__':
         # run ForeFire simulation
         #---------------------------------------------
         pathes = []
-        step = 1
+        step = 10
         N_step = 20
         flux_out_ff_history = []
         for i in np.arange(1,N_step):
+            
+            ff_time = i*step
+
             print "goTo[t=%f]"%(i*step),
             ff.execute("goTo[t=%f]"%(i*step))
             
@@ -483,7 +488,11 @@ if __name__ == '__main__':
 
             flux2d = ff.getDoubleArray("heatFluxBasic")[:,:,0]
             flux_out_ff =  (flux2d * atmo_dx * atmo_dy).sum() * 1.e-6
-            flux_expected = depth_fireLine*length_fireLine*nominalHeatFlux * 1.e-6 
+            
+            idx_fire_line = np.where(np.array(time_start_fireLine) <= ff_time)
+            flux_expected = 0
+            for idx_ in idx_fire_line[0]:
+                flux_expected += depth_fireLine[idx_]*length_fireLine[idx_]*nominalHeatFlux * 1.e-6 
             print  '| flux out of ff = ', flux_out_ff, '| expected = ', flux_expected, '| ratio = ', flux_out_ff/flux_expected
             
             pathes += printToPathe( ff.execute("print[]"))

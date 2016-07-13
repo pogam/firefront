@@ -1,0 +1,6 @@
+ xtransfer.x MESONH FI50m.1.SEG01.001 >> OUTPUT_TRANSFER001  2>&1 &             
+                      
+ xtransfer.x MESONH FI50m.1.SEG01.002 >> OUTPUT_TRANSFER002  2>&1 &             
+                      
+ xtransfer.x MESONH FI50m.1.SEG01.000 >> OUTPUT_TRANSFER003  2>&1 &             
+                      
